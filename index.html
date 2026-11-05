@@ -356,11 +356,11 @@
       <div class="price-tag">2,00 €</div>
       <div class="price-note">Offerta di prelancio riservata ai primi 10 professionisti aderenti (prezzo standard: 19,00 €)</div>
 
-      <!-- CTA diretta via email (in attesa di connettore pagamento) -->
-      <a href="mailto:razrmarinini@gmail.com?subject=Richiesta%20Acquisto%20StudioMargin%20Prelancio%20(2%20Euro)&body=Buongiorno,%20desidero%20accedere%20all'offerta%20di%20prelancio%20di%20StudioMargin%20Core%20(.xlsx)%20a%202,00%20EUR.%20Attendo%20dati%20per%20il%20versamento%20e%20fatturazione/ricevuta." class="btn">Richiedi il Modello a 2,00 €</a>
+      <!-- CTA collegata alla piattaforma esterna -->
+      <a href="[INSERIRE_LINK_GUMROAD]" class="btn">Scarica il Modello a 2,00 €</a>
       
       <p class="cta-subtext">
-        Inviando l'email riceverai il link diretto e i dettagli per il saldo con rilascio del documento fiscale.
+        Pagamento sicuro e consegna immediata del file garantita dalla piattaforma esterna.
       </p>
     </div>
   </div>
@@ -368,8 +368,8 @@
   <footer>
     <div class="legal-box">
       <p><strong>StudioMargin</strong> — Strumento di gestione economica per studi tecnici e ingegneria.</p>
-      <p>Titolare del servizio: Ing. Luca Marinini | P.IVA: [INSERIRE_PARTITA_IVA] | Contatto: razrmarinini@gmail.com</p>
-      <p>Sede: Bussero (MI), Italia | Condizioni d'uso e informativa privacy fornite su richiesta prima della conclusione del contratto.</p>
+      <p>Autore e proprietà intellettuale: Ing. Luca Marinini | Distribuzione fiscale e fatturazione gestite da piattaforma esterna delegata (Merchant of Record). | Contatto: razrmarinini@gmail.com</p>
+      <p>Condizioni d'uso e informativa privacy fornite in fase di acquisto sulla piattaforma di pagamento.</p>
       <p style="margin-top: 0.5rem; font-size: 0.75rem; color: #64748b;">Tutti i marchi registrati appartengono ai rispettivi proprietari. Il foglio di calcolo è concepito come ausilio gestionale e non costituisce parere contabile o tributario.</p>
     </div>
   </footer>
@@ -386,12 +386,11 @@
       const giorni = parseFloat(giorniLav.value) || 0;
       const eff = (parseFloat(billable.value) || 0) / 100;
 
-      // Ore annue = Giorni lavorativi * 8 ore/giorno * tasso di efficienza
       const oreAnnue = giorni * 8 * eff;
       const costoTot = fissi + comp;
       
       const breakeven = oreAnnue > 0 ? (costoTot / oreAnnue) : 0;
-      const target = breakeven / (1 - 0.25); // Target ricarico margine 25%
+      const target = breakeven / (1 - 0.25);
 
       document.getElementById('resOre').textContent = Math.round(oreAnnue).toLocaleString('it-IT') + ' h';
       document.getElementById('resBreak').textContent = breakeven.toFixed(2).replace('.', ',') + ' €/h';
