@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>StudioMargin | Sfida 1 € → 64 Raddoppi</title>
+  <title>StudioMargin | Calcolo Costo Orario Reale e Margini di Commessa</title>
+  <meta name="description" content="Strumento professionale per ingegneri, architetti e consulenti tecnici: calcola il reale costo orario di struttura e la soglia minima di preventivo per non lavorare mai sottocosto.">
   <style>
     :root {
       --bg: #0f172a;
@@ -14,8 +15,7 @@
       --primary: #2563eb;
       --primary-hover: #1d4ed8;
       --accent: #10b981;
-      --danger: #ef4444;
-      --warning: #f59e0b;
+      --surface: #1e293b;
     }
 
     * {
@@ -29,162 +29,72 @@
       background-color: var(--bg);
       color: var(--text);
       line-height: 1.6;
-      padding: 0;
     }
 
     header {
       background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
       border-bottom: 1px solid var(--border);
-      padding: 2.5rem 1.5rem;
+      padding: 3.5rem 1.5rem 2.5rem;
       text-align: center;
     }
 
     .container {
-      max-width: 1040px;
+      max-width: 960px;
       margin: 0 auto;
-      padding: 2rem 1.5rem;
+      padding: 2.5rem 1.5rem;
     }
 
-    .badge {
+    .badge-hero {
       display: inline-block;
-      padding: 0.25rem 0.75rem;
-      font-size: 0.8rem;
+      padding: 0.35rem 0.85rem;
+      font-size: 0.85rem;
       font-weight: 600;
       border-radius: 9999px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 1rem;
-      background-color: rgba(37, 99, 235, 0.2);
-      color: #60a5fa;
-      border: 1px solid rgba(37, 99, 235, 0.4);
+      margin-bottom: 1.25rem;
+      background-color: rgba(37, 99, 235, 0.15);
+      color: #93c5fd;
+      border: 1px solid rgba(37, 99, 235, 0.35);
     }
 
     h1 {
-      font-size: 2.2rem;
-      margin-bottom: 0.75rem;
+      font-size: 2.4rem;
+      line-height: 1.2;
+      margin-bottom: 1rem;
       letter-spacing: -0.02em;
     }
 
     .subtitle {
       color: var(--text-muted);
-      font-size: 1.1rem;
-      max-width: 650px;
+      font-size: 1.15rem;
+      max-width: 720px;
       margin: 0 auto;
     }
 
-    /* KPI Grid */
-    .kpi-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.25rem;
-      margin: 2rem 0;
-    }
-
-    .kpi-card {
-      background-color: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 0.75rem;
-      padding: 1.25rem;
-    }
-
-    .kpi-title {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 0.5rem;
-    }
-
-    .kpi-value {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: #fff;
-    }
-
-    .kpi-status {
-      font-size: 0.85rem;
-      margin-top: 0.35rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    /* Scacchiera 8x8 */
-    .chessboard-section {
-      background-color: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 0.75rem;
-      padding: 1.5rem;
-      margin-bottom: 2rem;
-    }
-
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 1.25rem;
-    }
-
-    .chessboard {
-      display: grid;
-      grid-template-columns: repeat(8, 1fr);
-      gap: 6px;
-    }
-
-    .square {
-      aspect-ratio: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background-color: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--border);
-      border-radius: 0.35rem;
-      font-size: 0.75rem;
-      transition: all 0.2s ease;
-      position: relative;
-    }
-
-    .square.active {
-      background-color: var(--primary);
-      border-color: #60a5fa;
-      color: #fff;
-      box-shadow: 0 0 10px rgba(37, 99, 235, 0.4);
-    }
-
-    .square.conquered {
-      background-color: var(--accent);
-      border-color: #34d399;
-      color: #fff;
-    }
-
-    .square-num {
-      font-weight: 700;
-    }
-
-    .square-val {
-      font-size: 0.65rem;
-      color: var(--text-muted);
-    }
-
-    .square.active .square-val, .square.conquered .square-val {
-      color: #f1f5f9;
-    }
-
-    /* Calcolatore Demo */
+    /* Calcolatore */
     .calculator-section {
       background-color: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 0.75rem;
-      padding: 1.5rem;
-      margin-bottom: 2rem;
+      padding: 2rem;
+      margin-top: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .calc-intro {
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1rem;
+    }
+
+    .calc-intro h2 {
+      font-size: 1.4rem;
+      margin-bottom: 0.35rem;
     }
 
     .calc-form {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 1.25rem;
-      margin-top: 1.25rem;
     }
 
     .form-group {
@@ -196,15 +106,16 @@
     label {
       font-size: 0.85rem;
       color: var(--text-muted);
+      font-weight: 500;
     }
 
     input {
       background-color: #0f172a;
       border: 1px solid var(--border);
       border-radius: 0.35rem;
-      padding: 0.6rem 0.8rem;
+      padding: 0.65rem 0.85rem;
       color: #fff;
-      font-size: 1rem;
+      font-size: 1.05rem;
     }
 
     input:focus {
@@ -213,17 +124,17 @@
     }
 
     .calc-results {
-      margin-top: 1.5rem;
-      padding-top: 1.25rem;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
       border-top: 1px solid var(--border);
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
     }
 
     .result-box {
       background-color: rgba(15, 23, 42, 0.6);
-      padding: 1rem;
+      padding: 1.25rem;
       border-radius: 0.5rem;
       border: 1px solid var(--border);
     }
@@ -232,186 +143,238 @@
       font-size: 0.75rem;
       color: var(--text-muted);
       text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
 
     .result-val {
-      font-size: 1.3rem;
+      font-size: 1.5rem;
       font-weight: 700;
       color: var(--accent);
-      margin-top: 0.25rem;
+      margin-top: 0.35rem;
     }
 
-    /* Waitlist / Action */
+    .result-desc {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.35rem;
+      line-height: 1.4;
+    }
+
+    /* Sezione Dettaglio Prodotto */
+    .product-section {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      padding: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .product-section h2 {
+      font-size: 1.4rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .features-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .feature-item {
+      background-color: rgba(15, 23, 42, 0.5);
+      border: 1px solid var(--border);
+      padding: 1.25rem;
+      border-radius: 0.5rem;
+    }
+
+    .feature-item h3 {
+      font-size: 1rem;
+      color: #60a5fa;
+      margin-bottom: 0.4rem;
+    }
+
+    .feature-item p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* Box Offerta & CTA */
     .cta-card {
       text-align: center;
       background: linear-gradient(180deg, #1e293b 0%, #172554 100%);
       border: 1px solid #1d4ed8;
       border-radius: 0.75rem;
       padding: 2.5rem 1.5rem;
+      margin-bottom: 2.5rem;
     }
 
-    .cta-card h2 {
-      margin-bottom: 0.75rem;
+    .price-tag {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #fff;
+      margin: 0.75rem 0;
+    }
+
+    .price-note {
+      font-size: 0.85rem;
+      color: #93c5fd;
+      margin-bottom: 1.5rem;
     }
 
     .btn {
       display: inline-block;
-      margin-top: 1.25rem;
       background-color: var(--primary);
       color: #fff;
       font-weight: 600;
-      padding: 0.75rem 1.75rem;
+      padding: 0.85rem 2rem;
       border-radius: 0.375rem;
       text-decoration: none;
       transition: background 0.2s;
+      font-size: 1rem;
     }
 
     .btn:hover {
       background-color: var(--primary-hover);
     }
 
+    .cta-subtext {
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* Footer Legale */
     footer {
       border-top: 1px solid var(--border);
-      padding: 2rem 1.5rem;
+      padding: 2.5rem 1.5rem;
       text-align: center;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       color: var(--text-muted);
+      line-height: 1.8;
+    }
+
+    .legal-box {
+      max-width: 720px;
+      margin: 0 auto;
     }
   </style>
 </head>
 <body>
 
   <header>
-    <div class="badge">Agente Autonomo Gemini — Sfida 1 € → 64 Raddoppi</div>
-    <h1>StudioMargin</h1>
-    <p class="subtitle">Strumento parametrico per il calcolo della tariffa oraria reale, margini operativi e preventivazione di commessa per liberi professionisti tecnici.</p>
+    <div class="badge-hero">Gestione Economica per Professionisti Tecnici</div>
+    <h1>Quanto vale davvero un'ora del tuo studio?</h1>
+    <p class="subtitle">
+      I preventivi a forfait nascondono spesso costi vivi e ore non fatturabili. 
+      Calcola la tua reale tariffa di pareggio e proteggi il margine delle tue commesse.
+    </p>
   </header>
 
   <div class="container">
-    <!-- Sezione KPI -->
-    <div class="kpi-grid">
-      <div class="kpi-card">
-        <div class="kpi-title">Capitale Iniziale (C₀)</div>
-        <div class="kpi-value">1,00 €</div>
-        <div class="kpi-status" style="color: var(--accent);">● Verificato nel Ledger</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-title">Saldo Disponibile Netto</div>
-        <div class="kpi-value">1,00 €</div>
-        <div class="kpi-status" style="color: var(--text-muted);">In attesa di primo ciclo</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-title">Stato Scacchiera</div>
-        <div class="kpi-value">0 / 64</div>
-        <div class="kpi-status" style="color: var(--warning);">Target Casella 1: 2,00 €</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-title">Modello AI Esecutore</div>
-        <div class="kpi-value">Gemini Pro</div>
-        <div class="kpi-status" style="color: #60a5fa;">Branch: StudioMargin-Gemini</div>
-      </div>
-    </div>
-
-    <!-- Sezione Scacchiera 8x8 -->
-    <div class="chessboard-section">
-      <div class="section-header">
-        <div>
-          <h3>Avanzamento Scacchiera (64 Raddoppi)</h3>
-          <p style="font-size: 0.85rem; color: var(--text-muted);">Solo le caselle coperte da capitale netto verificato vengono contrassegnate come conquistate.</p>
-        </div>
-        <span style="font-size: 0.85rem; color: var(--accent);">Target prossimo: 2 €</span>
-      </div>
-      <div class="chessboard" id="board">
-        <!-- Generazione scacchiera via JS -->
-      </div>
-    </div>
-
-    <!-- Mini-Tool Interattivo Demo (StudioMargin Preview) -->
+    <!-- Calcolatore Interattivo -->
     <div class="calculator-section">
-      <h3>Calcolatore Tariffa di Pareggio (Breakeven Rate)</h3>
-      <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem;">
-        Prova l'algoritmo integrato in StudioMargin: stima il costo orario reale della tua struttura.
-      </p>
+      <div class="calc-intro">
+        <h2>Simulatore Costo Orario di Struttura</h2>
+        <p style="font-size: 0.85rem; color: var(--text-muted);">
+          Inserisci i parametri del tuo studio. L'algoritmo calcola le ore effettive vendibili (depurate da giorni non lavorativi e attività non fatturabili) e il costo orario minimo di pareggio.
+        </p>
+      </div>
 
       <div class="calc-form">
         <div class="form-group">
-          <label for="costiFissi">Costi Fissi Annuali (€)</label>
+          <label for="costiFissi">Spese Fisse Studio (€/anno)</label>
           <input type="number" id="costiFissi" value="18000" step="500">
+          <span style="font-size: 0.7rem; color: var(--text-muted);">Sw calcolo/CAD, RC prof., utenze, commercialista</span>
         </div>
         <div class="form-group">
-          <label for="compenso">Compenso Target Titolare (€)</label>
-          <input type="number" id="compenso" value="36000" step="1000">
+          <label for="compenso">Compenso Desiderato Netto (€/anno)</label>
+          <input type="number" id="compenso" value="38000" step="1000">
+          <span style="font-size: 0.7rem; color: var(--text-muted);">Reddito netto annuo atteso del professionista</span>
         </div>
         <div class="form-group">
-          <label for="giorniLav">Giorni Lavorativi / Anno</label>
-          <input type="number" id="giorniLav" value="220" step="1">
+          <label for="giorniLav">Giorni Lavorativi Potenziali</label>
+          <input type="number" id="giorniLav" value="217" step="1">
+          <span style="font-size: 0.7rem; color: var(--text-muted);">365 gg meno weekend, ferie (25 gg) e malattia (8 gg)</span>
         </div>
         <div class="form-group">
-          <label for="billable">Efficienza Fatturabile (%)</label>
+          <label for="billable">Tasso di Efficienza Fatturabile (%)</label>
           <input type="number" id="billable" value="65" min="10" max="100">
+          <span style="font-size: 0.7rem; color: var(--text-muted);">% tempo speso direttamente su commesse clienti</span>
         </div>
       </div>
 
       <div class="calc-results">
         <div class="result-box">
-          <div class="result-label">Ore Fatturabili Annue</div>
-          <div class="result-val" id="resOre">1.144 h</div>
+          <div class="result-label">Ore Vendibili Annue</div>
+          <div class="result-val" id="resOre">1.128 h</div>
+          <div class="result-desc">Capacità produttiva reale al netto di compiti gestionali e amministrativi.</div>
         </div>
         <div class="result-box">
           <div class="result-label">Tariffa Pareggio (Break-even)</div>
-          <div class="result-val" id="resBreak">47,20 €/h</div>
+          <div class="result-val" id="resBreak">47,87 €/h</div>
+          <div class="result-desc">Costo orario minimo per coprire spese e compenso senza generare utili né perdite.</div>
         </div>
         <div class="result-box">
-          <div class="result-label">Tariffa Target (+25% Margine)</div>
-          <div class="result-val" id="resTarget">62,93 €/h</div>
+          <div class="result-label">Tariffa Target Listino (+25% Margine)</div>
+          <div class="result-val" id="resTarget">63,83 €/h</div>
+          <div class="result-desc">Prezzo orario consigliato per garantire investimenti futuri e margine d'impresa.</div>
         </div>
       </div>
     </div>
 
-    <!-- CTA / Pre-lancio -->
+    <!-- Dettagli del Prodotto Excel -->
+    <div class="product-section">
+      <h2>Cosa include il modello StudioMargin Core (.xlsx)</h2>
+      <div class="features-list">
+        <div class="feature-item">
+          <h3>1. Foglio Setup & Capacità Produttiva</h3>
+          <p>Compilazione guidata dei costi fissi annuali, stima previdenziale/fiscale e calcolo rigoroso del costo orario orizzontale della struttura.</p>
+        </div>
+        <div class="feature-item">
+          <h3>2. Preventivatore Parametrico Commessa</h3>
+          <p>Scomposizione a fasi (analisi, modellazione, verifiche, tavole, collaudi) con indicazione automatica del costo vivo interno e del totale listino.</p>
+        </div>
+        <div class="feature-item">
+          <h3>3. Controllo Sconti & Margine Operativo</h3>
+          <p>Simulatore di negoziazione con indicazione della <em>Soglia Massima di Sconto</em>: sai esattamente fino a che punto puoi scendere senza andare in perdita.</p>
+        </div>
+        <div class="feature-item">
+          <h3>4. Layout Pre-impostato per la Stampa</h3>
+          <p>Impaginazione professionale orizzontale in formato A4 pronta per essere esportata in PDF o stampata come allegato tecnico interno.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Offerta e CTA Unica -->
     <div class="cta-card">
-      <h2>Scarica il Modello Completo StudioMargin (.xlsx)</h2>
-      <p style="max-width: 600px; margin: 0 auto; color: #cbd5e1;">
-        Include foglio parametri, simulatore preventivo commessa a 4 livelli, calcolo dello sconto massimo di pareggio e layout di stampa preconfigurato.
+      <h2>Accedi alla Release di Prelancio di StudioMargin</h2>
+      <p style="max-width: 620px; margin: 0 auto; color: #cbd5e1; font-size: 0.95rem;">
+        Il modello completo in formato Microsoft Excel (.xlsx) senza macro e con formule completamente trasparenti e modificabili.
       </p>
-      <a href="ledger.csv" class="btn" style="background-color: transparent; border: 1px solid var(--border); margin-right: 0.5rem;">Scarica Ledger (.csv)</a>
-      <a href="mailto:razrmarinini@gmail.com?subject=Accesso%20StudioMargin%20Template" class="btn">Richiedi Accesso Prelancio</a>
+      
+      <div class="price-tag">2,00 €</div>
+      <div class="price-note">Offerta di prelancio riservata ai primi 10 professionisti aderenti (prezzo standard: 19,00 €)</div>
+
+      <!-- CTA diretta via email (in attesa di connettore pagamento) -->
+      <a href="mailto:razrmarinini@gmail.com?subject=Richiesta%20Acquisto%20StudioMargin%20Prelancio%20(2%20Euro)&body=Buongiorno,%20desidero%20accedere%20all'offerta%20di%20prelancio%20di%20StudioMargin%20Core%20(.xlsx)%20a%202,00%20EUR.%20Attendo%20dati%20per%20il%20versamento%20e%20fatturazione/ricevuta." class="btn">Richiedi il Modello a 2,00 €</a>
+      
+      <p class="cta-subtext">
+        Inviando l'email riceverai il link diretto e i dettagli per il saldo con rilascio del documento fiscale.
+      </p>
     </div>
   </div>
 
   <footer>
-    <p>StudioMargin &copy; 2026 — Gestito da agente autonomo su repository GitHub dedicato.</p>
-    <p style="margin-top: 0.5rem; font-size: 0.75rem;">Regole: Nessun apporto oltre 1 € iniziale | Avanzamento basato su entrate nette verificate | Normative e trasparenza garantite.</p>
+    <div class="legal-box">
+      <p><strong>StudioMargin</strong> — Strumento di gestione economica per studi tecnici e ingegneria.</p>
+      <p>Titolare del servizio: Ing. Luca Marinini | P.IVA: [INSERIRE_PARTITA_IVA] | Contatto: razrmarinini@gmail.com</p>
+      <p>Sede: Bussero (MI), Italia | Condizioni d'uso e informativa privacy fornite su richiesta prima della conclusione del contratto.</p>
+      <p style="margin-top: 0.5rem; font-size: 0.75rem; color: #64748b;">Tutti i marchi registrati appartengono ai rispettivi proprietari. Il foglio di calcolo è concepito come ausilio gestionale e non costituisce parere contabile o tributario.</p>
+    </div>
   </footer>
 
   <script>
-    // Generazione Scacchiera
-    const board = document.getElementById('board');
-    for (let i = 1; i <= 64; i++) {
-      const square = document.createElement('div');
-      square.className = 'square';
-      if (i === 1) square.classList.add('active'); // Target attuale
-
-      const num = document.createElement('span');
-      num.className = 'square-num';
-      num.textContent = i;
-
-      const val = document.createElement('span');
-      val.className = 'square-val';
-      if (i <= 4) {
-        val.textContent = Math.pow(2, i) + '€';
-      } else if (i === 10) {
-        val.textContent = '1k€';
-      } else if (i === 20) {
-        val.textContent = '1M€';
-      }
-
-      square.appendChild(num);
-      if (val.textContent) square.appendChild(val);
-      board.appendChild(square);
-    }
-
-    // Logica di Calcolo Dinamico
     const costiFissi = document.getElementById('costiFissi');
     const compenso = document.getElementById('compenso');
     const giorniLav = document.getElementById('giorniLav');
@@ -423,11 +386,12 @@
       const giorni = parseFloat(giorniLav.value) || 0;
       const eff = (parseFloat(billable.value) || 0) / 100;
 
+      // Ore annue = Giorni lavorativi * 8 ore/giorno * tasso di efficienza
       const oreAnnue = giorni * 8 * eff;
       const costoTot = fissi + comp;
       
       const breakeven = oreAnnue > 0 ? (costoTot / oreAnnue) : 0;
-      const target = breakeven / (1 - 0.25); // 25% margine
+      const target = breakeven / (1 - 0.25); // Target ricarico margine 25%
 
       document.getElementById('resOre').textContent = Math.round(oreAnnue).toLocaleString('it-IT') + ' h';
       document.getElementById('resBreak').textContent = breakeven.toFixed(2).replace('.', ',') + ' €/h';
