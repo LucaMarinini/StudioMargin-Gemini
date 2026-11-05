@@ -1,0 +1,2 @@
+data_ora,tipo_operazione,descrizione,fonte_evidenza,entrate_lorde_eur,uscite_eur,commissioni_eur,imposte_oneri_stimati_eur,rimborsi_eur,saldo_disponibile_verificato_eur,note,stato_verifica
+2026-11-05 10:00:00,CONFERIMENTO_INIZIALE,Capitale iniziale stanziato per Sfida 1 Euro (C0),Accantonamento confermato da Luca Marinini,1.00,0.00,0.00,0.00,0.00,1.00,Apertura ledger di progetto - Obiettivo Casella 1 (soglia 2.00 EUR),VERIFICATO

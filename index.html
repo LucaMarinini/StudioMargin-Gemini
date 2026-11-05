@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudioMargin | Sfida 1 € → 64 Raddoppi</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --accent: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 0;
+    }
+
+    header {
+      background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+      background-color: rgba(37, 99, 235, 0.2);
+      color: #60a5fa;
+      border: 1px solid rgba(37, 99, 235, 0.4);
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    /* KPI Grid */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+      margin: 2rem 0;
+    }
+
+    .kpi-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      padding: 1.25rem;
+    }
+
+    .kpi-title {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+
+    .kpi-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .kpi-status {
+      font-size: 0.85rem;
+      margin-top: 0.35rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Scacchiera 8x8 */
+    .chessboard-section {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 1.25rem;
+    }
+
+    .chessboard {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 6px;
+    }
+
+    .square {
+      aspect-ratio: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: 0.35rem;
+      font-size: 0.75rem;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .square.active {
+      background-color: var(--primary);
+      border-color: #60a5fa;
+      color: #fff;
+      box-shadow: 0 0 10px rgba(37, 99, 235, 0.4);
+    }
+
+    .square.conquered {
+      background-color: var(--accent);
+      border-color: #34d399;
+      color: #fff;
+    }
+
+    .square-num {
+      font-weight: 700;
+    }
+
+    .square-val {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+    }
+
+    .square.active .square-val, .square.conquered .square-val {
+      color: #f1f5f9;
+    }
+
+    /* Calcolatore Demo */
+    .calculator-section {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .calc-form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1.25rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    input {
+      background-color: #0f172a;
+      border: 1px solid var(--border);
+      border-radius: 0.35rem;
+      padding: 0.6rem 0.8rem;
+      color: #fff;
+      font-size: 1rem;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .calc-results {
+      margin-top: 1.5rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+    }
+
+    .result-box {
+      background-color: rgba(15, 23, 42, 0.6);
+      padding: 1rem;
+      border-radius: 0.5rem;
+      border: 1px solid var(--border);
+    }
+
+    .result-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .result-val {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-top: 0.25rem;
+    }
+
+    /* Waitlist / Action */
+    .cta-card {
+      text-align: center;
+      background: linear-gradient(180deg, #1e293b 0%, #172554 100%);
+      border: 1px solid #1d4ed8;
+      border-radius: 0.75rem;
+      padding: 2.5rem 1.5rem;
+    }
+
+    .cta-card h2 {
+      margin-bottom: 0.75rem;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 1.25rem;
+      background-color: var(--primary);
+      color: #fff;
+      font-weight: 600;
+      padding: 0.75rem 1.75rem;
+      border-radius: 0.375rem;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .btn:hover {
+      background-color: var(--primary-hover);
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="badge">Agente Autonomo Gemini — Sfida 1 € → 64 Raddoppi</div>
+    <h1>StudioMargin</h1>
+    <p class="subtitle">Strumento parametrico per il calcolo della tariffa oraria reale, margini operativi e preventivazione di commessa per liberi professionisti tecnici.</p>
+  </header>
+
+  <div class="container">
+    <!-- Sezione KPI -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-title">Capitale Iniziale (C₀)</div>
+        <div class="kpi-value">1,00 €</div>
+        <div class="kpi-status" style="color: var(--accent);">● Verificato nel Ledger</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-title">Saldo Disponibile Netto</div>
+        <div class="kpi-value">1,00 €</div>
+        <div class="kpi-status" style="color: var(--text-muted);">In attesa di primo ciclo</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-title">Stato Scacchiera</div>
+        <div class="kpi-value">0 / 64</div>
+        <div class="kpi-status" style="color: var(--warning);">Target Casella 1: 2,00 €</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-title">Modello AI Esecutore</div>
+        <div class="kpi-value">Gemini Pro</div>
+        <div class="kpi-status" style="color: #60a5fa;">Branch: StudioMargin-Gemini</div>
+      </div>
+    </div>
+
+    <!-- Sezione Scacchiera 8x8 -->
+    <div class="chessboard-section">
+      <div class="section-header">
+        <div>
+          <h3>Avanzamento Scacchiera (64 Raddoppi)</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Solo le caselle coperte da capitale netto verificato vengono contrassegnate come conquistate.</p>
+        </div>
+        <span style="font-size: 0.85rem; color: var(--accent);">Target prossimo: 2 €</span>
+      </div>
+      <div class="chessboard" id="board">
+        <!-- Generazione scacchiera via JS -->
+      </div>
+    </div>
+
+    <!-- Mini-Tool Interattivo Demo (StudioMargin Preview) -->
+    <div class="calculator-section">
+      <h3>Calcolatore Tariffa di Pareggio (Breakeven Rate)</h3>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem;">
+        Prova l'algoritmo integrato in StudioMargin: stima il costo orario reale della tua struttura.
+      </p>
+
+      <div class="calc-form">
+        <div class="form-group">
+          <label for="costiFissi">Costi Fissi Annuali (€)</label>
+          <input type="number" id="costiFissi" value="18000" step="500">
+        </div>
+        <div class="form-group">
+          <label for="compenso">Compenso Target Titolare (€)</label>
+          <input type="number" id="compenso" value="36000" step="1000">
+        </div>
+        <div class="form-group">
+          <label for="giorniLav">Giorni Lavorativi / Anno</label>
+          <input type="number" id="giorniLav" value="220" step="1">
+        </div>
+        <div class="form-group">
+          <label for="billable">Efficienza Fatturabile (%)</label>
+          <input type="number" id="billable" value="65" min="10" max="100">
+        </div>
+      </div>
+
+      <div class="calc-results">
+        <div class="result-box">
+          <div class="result-label">Ore Fatturabili Annue</div>
+          <div class="result-val" id="resOre">1.144 h</div>
+        </div>
+        <div class="result-box">
+          <div class="result-label">Tariffa Pareggio (Break-even)</div>
+          <div class="result-val" id="resBreak">47,20 €/h</div>
+        </div>
+        <div class="result-box">
+          <div class="result-label">Tariffa Target (+25% Margine)</div>
+          <div class="result-val" id="resTarget">62,93 €/h</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA / Pre-lancio -->
+    <div class="cta-card">
+      <h2>Scarica il Modello Completo StudioMargin (.xlsx)</h2>
+      <p style="max-width: 600px; margin: 0 auto; color: #cbd5e1;">
+        Include foglio parametri, simulatore preventivo commessa a 4 livelli, calcolo dello sconto massimo di pareggio e layout di stampa preconfigurato.
+      </p>
+      <a href="ledger.csv" class="btn" style="background-color: transparent; border: 1px solid var(--border); margin-right: 0.5rem;">Scarica Ledger (.csv)</a>
+      <a href="mailto:razrmarinini@gmail.com?subject=Accesso%20StudioMargin%20Template" class="btn">Richiedi Accesso Prelancio</a>
+    </div>
+  </div>
+
+  <footer>
+    <p>StudioMargin &copy; 2026 — Gestito da agente autonomo su repository GitHub dedicato.</p>
+    <p style="margin-top: 0.5rem; font-size: 0.75rem;">Regole: Nessun apporto oltre 1 € iniziale | Avanzamento basato su entrate nette verificate | Normative e trasparenza garantite.</p>
+  </footer>
+
+  <script>
+    // Generazione Scacchiera
+    const board = document.getElementById('board');
+    for (let i = 1; i <= 64; i++) {
+      const square = document.createElement('div');
+      square.className = 'square';
+      if (i === 1) square.classList.add('active'); // Target attuale
+
+      const num = document.createElement('span');
+      num.className = 'square-num';
+      num.textContent = i;
+
+      const val = document.createElement('span');
+      val.className = 'square-val';
+      if (i <= 4) {
+        val.textContent = Math.pow(2, i) + '€';
+      } else if (i === 10) {
+        val.textContent = '1k€';
+      } else if (i === 20) {
+        val.textContent = '1M€';
+      }
+
+      square.appendChild(num);
+      if (val.textContent) square.appendChild(val);
+      board.appendChild(square);
+    }
+
+    // Logica di Calcolo Dinamico
+    const costiFissi = document.getElementById('costiFissi');
+    const compenso = document.getElementById('compenso');
+    const giorniLav = document.getElementById('giorniLav');
+    const billable = document.getElementById('billable');
+
+    function updateCalc() {
+      const fissi = parseFloat(costiFissi.value) || 0;
+      const comp = parseFloat(compenso.value) || 0;
+      const giorni = parseFloat(giorniLav.value) || 0;
+      const eff = (parseFloat(billable.value) || 0) / 100;
+
+      const oreAnnue = giorni * 8 * eff;
+      const costoTot = fissi + comp;
+      
+      const breakeven = oreAnnue > 0 ? (costoTot / oreAnnue) : 0;
+      const target = breakeven / (1 - 0.25); // 25% margine
+
+      document.getElementById('resOre').textContent = Math.round(oreAnnue).toLocaleString('it-IT') + ' h';
+      document.getElementById('resBreak').textContent = breakeven.toFixed(2).replace('.', ',') + ' €/h';
+      document.getElementById('resTarget').textContent = target.toFixed(2).replace('.', ',') + ' €/h';
+    }
+
+    [costiFissi, compenso, giorniLav, billable].forEach(input => {
+      input.addEventListener('input', updateCalc);
+    });
+    updateCalc();
+  </script>
+</body>
+</html>
